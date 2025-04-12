@@ -19,7 +19,7 @@ void TodoList::destroy() {
 int TodoList::string_length(const char* str) const {
     int len = 0;
     while (str[len] != '\0') {
-        ++len;
+        len++;
     }
     return len;
 }
@@ -28,7 +28,7 @@ void TodoList::string_copy(char* dest, const char* src) const {
     int i = 0;
     while (src[i] != '\0') {
         dest[i] = src[i];
-        ++i;
+        i++;
     }
     dest[i] = '\0';  
 }
@@ -41,7 +41,7 @@ void TodoList::add_task(const char* task) {
     int len = string_length(task);
     tasks[size] = new char[len + 1];  
     string_copy(tasks[size], task);
-    ++size;
+    size++;
 }
 
 void TodoList::remove_task(int index) {
@@ -56,10 +56,14 @@ void TodoList::remove_task(int index) {
     }
 
     tasks[size - 1] = nullptr;
-    --size;
+    size--;
 }
 
 const char** TodoList::get_pending_tasks(int& count) const {
     count = size;
-    return const_cast<const char**>(tasks);  
+    const char** result = new const char*[size];
+    for (int i = 0; i < size; i++){
+        result[i] = tasks[i];
+    }
+    return result;
 }
